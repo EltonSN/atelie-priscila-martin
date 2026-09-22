@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens — Atelier Priscila Martin
+   Paleta: marfim quente + espresso + terracota, com o dourado da marca usado
+   apenas como detalhe. Todos os pares de cor usados em texto foram verificados
+   para contraste WCAG AA (>= 4.5:1 em texto corrente, >= 3:1 em texto grande).
+--------------------------------------------------------------------------- */
+@theme {
+  /* Superfícies claras */
+  --color-cream: #faf7f2;
+  --color-bone: #f2eee6;
+  --color-sand: #e6dfd3;
+  --color-line: #ded7ca;
+
+  /* Superfícies escuras */
+  --color-espresso: #2a211c;
+  --color-espresso-deep: #1b1512;
+
+  /* Texto */
+  --color-ink: #241d18; /* 14.5:1 sobre --color-bone */
+  --color-ink-soft: #5e544c; /*  6.4:1 sobre --color-bone */
+  --color-ink-muted: #6f645b; /*  4.9:1 sobre --color-bone */
+  --color-on-dark: #ede6db; /* 12.7:1 sobre --color-espresso */
+  --color-on-dark-muted: #b9ada0; /*  7.1:1 sobre --color-espresso */
+
+  /* Acento (terracota) */
+  --color-clay: #b0714b; /* decorativo / texto grande */
+  --color-clay-deep: #8c5231; /*  5.4:1 sobre --color-bone */
+  --color-clay-light: #ce9367; /*  6.0:1 sobre --color-espresso */
+  --color-gold: #c9a227;
+
+  /* Tipografia */
+  --font-display: var(--font-garamond), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-jost), ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Escala espaçosa (density 3/10) */
+  --spacing: 0.25rem;
+
+  /* Movimento */
+  --ease-refined: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    /* Compensa o cabeçalho fixo na navegação por âncoras. */
+    scroll-padding-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-clay);
+    color: #fff;
+  }
+
+  /* Elimina o atraso de 300 ms do duplo toque e o realce azul por omissão. */
+  a,
+  button,
+  summary,
+  [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Anel de foco consistente e sempre visível para navegação por teclado. */
+  :focus-visible {
+    outline: 2px solid var(--color-clay-deep);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /*
+   * Rótulos em versaletes.
+   *
+   * `.eyebrow` é a legenda pequena (títulos de trabalhos, rodapé, navegação,
+   * autoria do testemunho). `.section-label` é o rótulo que abre uma secção —
+   * mesmo registo, um pouco maior, por ter peso de título.
+   *
+   * O tamanho de cada variante é o único valor que muda: para os afinar, mexa
+   * em `--label-size` na regra respetiva.
+   */
+  .eyebrow,
+  .section-label {
+    font-size: var(--label-size, 0.6875rem);
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .section-label {
+    --label-size: 0.8125rem;
+  }
+
+  /* Contentor fluido — nunca usa largura fixa em px. */
+  .shell {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 82rem;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .shell {
+      padding-inline: 3rem;
+    }
+  }
+
+  /*
+   * Esbate a margem esquerda da imagem do hero, que é onde ela encosta à
+   * coluna de texto, para não haver uma aresta vertical dura. Só se aplica a
+   * partir de `lg`: abaixo disso a imagem fica em bloco, por baixo do texto, e
+   * não há separação lateral para suavizar.
+   */
+  @media (min-width: 60rem) {
+    .hero-fade {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 26%);
+      mask-image: linear-gradient(to right, transparent 0%, #000 24%);
+    }
+  }
+}
+
+@layer utilities {
+  /* Revelação ao scroll — sem deslocação quando o utilizador pede menos movimento. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition:
+      opacity 700ms var(--ease-refined),
+      transform 700ms var(--ease-refined);
+  }
+
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Entrada do botão flutuante — em CSS, para funcionar sem JavaScript. */
+  .float-in {
+    animation: float-in 400ms var(--ease-refined) 600ms both;
+  }
+
+  @keyframes float-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .float-in {
+      animation: none;
+    }
+
+    .reveal,
+    .reveal[data-visible="true"] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
