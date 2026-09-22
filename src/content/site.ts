@@ -6,6 +6,37 @@
  * estruturados da página.
  */
 
+/**
+ * URL base do site — usada no `metadataBase`, no canonical, no `sitemap.xml`,
+ * no `robots.txt` e nos dados estruturados.
+ *
+ * Resolvida por esta ordem:
+ *   1. `NEXT_PUBLIC_SITE_URL` — o domínio final, definido manualmente.
+ *   2. `VERCEL_PROJECT_PRODUCTION_URL` — domínio de produção do projeto na
+ *      Vercel, preenchido automaticamente. Serve de rede de segurança enquanto
+ *      o domínio próprio não estiver ligado.
+ *   3. O domínio definitivo, para desenvolvimento local.
+ *
+ * Sem isto, uma publicação feita antes de o domínio estar ativo anunciaria
+ * `atelierpriscilamartin.pt` no sitemap e nos canonical de um site que ainda
+ * vive noutro endereço.
+ *
+ * Só é lida em contexto de servidor (metadados, sitemap, robots, JSON-LD).
+ */
+function resolveSiteUrl(): string {
+  const configured =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : undefined);
+
+  if (!configured) return "https://atelierpriscilamartin.pt";
+
+  // Tolera o valor sem esquema e com barra final — `new URL()` rejeita ambos.
+  const withScheme = /^https?:\/\//.test(configured) ? configured : `https://${configured}`;
+  return withScheme.replace(/\/+$/, "");
+}
+
 /** Número de WhatsApp em formato internacional, sem sinais (usado em wa.me). */
 const WHATSAPP_NUMBER = "351925847490";
 
@@ -28,8 +59,7 @@ export const site = {
   tagline: "Cortinados por medida",
   description:
     "Atelier de cortinados por medida em Portugal. Aconselhamento de tecidos, medição ao domicílio, confeção artesanal e instalação.",
-  // TODO(cliente): confirmar o domínio final antes de publicar.
-  url: "https://atelierpriscilamartin.pt",
+  url: resolveSiteUrl(),
   locale: "pt-PT",
   /** Zona de atendimento apresentada no rodapé. TODO(cliente): confirmar. */
   serviceArea: "Portugal · atendimento ao domicílio",
