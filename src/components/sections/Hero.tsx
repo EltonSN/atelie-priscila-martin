@@ -21,7 +21,7 @@ export function Hero() {
 
           <p className="mt-8 max-w-md text-[1.0625rem] text-ink-soft">
             Do aconselhamento de tecidos à colocação final, o Atelier Priscila Martin concebe e
-            confeciona cada peça com o rigor artesanal que uma casa de exceção merece.
+            confeciona cortinados em onda (Wave) e por medida, com o rigor artesanal que uma casa de exceção merece.
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">

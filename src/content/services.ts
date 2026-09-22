@@ -11,7 +11,7 @@ export const services: Service[] = [
     icon: "curtain",
     title: "Cortinados por medida",
     description:
-      "Cortinas, sanefas e reposteiros confecionados peça a peça, com o caimento estudado para cada vão e para a luz de cada divisão.",
+      "Especialistas em cortinados em onda (sistema Wave), sanefas e reposteiros confecionados peça a peça, com o caimento estudado para cada vão e para a luz de cada divisão.",
   },
   {
     icon: "fabric",

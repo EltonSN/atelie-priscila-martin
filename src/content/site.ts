@@ -58,7 +58,7 @@ export const site = {
   shortName: "Priscila Martin",
   tagline: "Cortinados por medida",
   description:
-    "Atelier de cortinados por medida em Portugal. Aconselhamento de tecidos, medição ao domicílio, confeção artesanal e instalação.",
+    "Atelier de cortinados por medida em Portugal. Especialistas em cortinados em onda (sistema Wave), aconselhamento de tecidos, medição ao domicílio, confeção artesanal e instalação.",
   url: resolveSiteUrl(),
   locale: "pt-PT",
   /** Zona de atendimento apresentada no rodapé. TODO(cliente): confirmar. */

@@ -31,16 +31,16 @@ export const portfolioItems: PortfolioItem[] = [
   // Linha 1 — 4 + 2
   {
     src: "/portfolio/04.jpg",
-    alt: "Sala e cozinha em espaço aberto com cortinado ondulado a cobrir a porta de correr",
-    title: "Cortinado ondulado",
+    alt: "Sala e cozinha em espaço aberto com cortinado em onda (Wave) a cobrir a porta de correr",
+    title: "Cortinado em Onda (Wave)",
     location: "Sala e cozinha",
     span: 4,
     ratio: "3 / 2",
   },
   {
     src: "/portfolio/01.jpg",
-    alt: "Sala comum com voile branco em calha ondulada, do teto ao chão",
-    title: "Voile em calha ondulada",
+    alt: "Sala comum com voile branco em calha Wave, do teto ao chão",
+    title: "Voile em calha Wave",
     location: "Sala comum",
     span: 2,
     ratio: "3 / 4",
