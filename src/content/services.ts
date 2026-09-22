@@ -14,12 +14,6 @@ export const services: Service[] = [
       "Cortinas, sanefas e reposteiros confecionados peça a peça, com o caimento estudado para cada vão e para a luz de cada divisão.",
   },
   {
-    icon: "blind",
-    title: "Estores e sistemas",
-    description:
-      "Estores de rolo, romanos e painéis japoneses, calhas embutidas e motorização discreta, integrados na arquitetura do espaço.",
-  },
-  {
     icon: "fabric",
     title: "Consultoria de tecidos",
     description:
